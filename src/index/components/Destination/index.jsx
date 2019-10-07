@@ -4,11 +4,14 @@ import PropTypes from "prop-types";
 import switchImg from "../../imgs/switch.svg";
 
 export default function Destination(props) {
-  const { from, to, exchangeFromTo, shwoCitySelector } = props;
+  const { from, to, exchangeFromTo, showCitySelector } = props;
 
   return (
     <div className="destination">
-      <div className="destination-station">
+      <div
+        className="destination-station"
+        onClick={() => showCitySelector(true)}
+      >
         <input
           type="text"
           readOnly
@@ -18,9 +21,12 @@ export default function Destination(props) {
         />
       </div>
       <div className="destination-switch">
-        <img src={switchImg} alt="switch" />
+        <img src={switchImg} alt="switch" onClick={exchangeFromTo} />
       </div>
-      <div className="destination-station">
+      <div
+        className="destination-station"
+        onClick={() => showCitySelector(false)}
+      >
         <input
           type="text"
           readOnly
@@ -37,5 +43,5 @@ Destination.propTypes = {
   from: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
   exchangeFromTo: PropTypes.func.isRequired,
-  shwoCitySelector: PropTypes.bool.isRequired
+  showCitySelector: PropTypes.func.isRequired
 };

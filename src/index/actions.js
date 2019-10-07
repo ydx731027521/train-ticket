@@ -80,6 +80,7 @@ export function setSelectedCity(city) {
   return (dispatch, getState) => {
     const { currentSelectingLeftCity } = getState();
     currentSelectingLeftCity ? dispatch(setFrom(city)) : dispatch(setTo(city));
+    dispatch(hideCitySelector());
   };
 }
 
@@ -97,6 +98,43 @@ export function exchangeFromTo() {
     const { from, to } = getState();
     dispatch(setFrom(to));
     dispatch(setTo(from));
+  };
+}
+
+// 获取城市数据
+export function fetchCityData() {
+  return (dispatch, getState) => {
+    const { isLoadingCityData } = getState();
+    if (isLoadingCityData) return;
+
+    const cityDataCache = JSON.parse(
+      localStorage.getItem("city_data_cache") || "{}"
+    );
+
+    if (Date.now() < cityDataCache.expires) {
+      dispatch(setCityData(cityDataCache.data));
+      return;
+    }
+
+    if (cityDataCache)
+      fetch("/rest/cities?_" + Date.now())
+        .then(res => res.json())
+        .then(response => {
+          dispatch(setCityData(response));
+
+          localStorage.setItem(
+            "cities_data_cache",
+            JSON.stringify({
+              expires: Date.now() + 60 * 1000,
+              data: response
+            })
+          );
+
+          dispatch(setIsLoadingCityData(false));
+        })
+        .catch(() => {
+          dispatch(setIsLoadingCityData(false));
+        });
   };
 }
 

@@ -84,11 +84,19 @@ export function setSelectedCity(city) {
   };
 }
 
-// 设置日期浮层的展示
-export function showDateSelector(payload) {
+// 展示日期浮层
+export function showDateSelector() {
   return {
     type: ACTION_SET_IS_DATE_SELECTOR_VISIBLE,
-    payload
+    payload: true
+  };
+}
+
+// 隐藏日期浮层
+export function hideDateSelector() {
+  return {
+    type: ACTION_SET_IS_DATE_SELECTOR_VISIBLE,
+    payload: false
   };
 }
 
@@ -137,26 +145,3 @@ export function fetchCityData() {
         });
   };
 }
-
-// // 设置城市浮层的状态
-// export function setIsCitySelectorVisible(payload) {
-//   return {
-//     type: ACTION_SET_IS_CITY_SELECTOR_VISIBLE,
-//     payload
-//   };
-// }
-
-// export function setCurrentselectingLeftCity(payload) {
-//   return {
-//     type: ACTION_SET_CURRENT_SELECTING_LEFT_CITY,
-//     payload
-//   };
-// }
-
-// // 设置日期浮层的状态
-// export function setIsDateSelectorVisible(payload) {
-//   return {
-//     type: ACTION_SET_IS_DATE_SELECTOR_VISIBLE,
-//     payload
-//   };
-// }

@@ -9,6 +9,7 @@ import DatePicker from "./components/DatePicker/index.jsx";
 import HighSpeed from "./components/HighSpeed/index.jsx";
 import Submit from "./components/Submit/index.jsx";
 import CitySelector from "@/common/CitySelector/index.jsx";
+import DateSelector from "@/common/DateSelector/index.jsx";
 
 import {
   showCitySelector,
@@ -16,7 +17,8 @@ import {
   hideCitySelector,
   fetchCityData,
   setSelectedCity,
-  showDateSelector
+  showDateSelector,
+  hideDateSelector
 } from "./actions";
 
 function App(props) {
@@ -27,8 +29,10 @@ function App(props) {
     isLoadingCityData,
     isCitySelectorVisible,
     dispatch,
-    departDate
+    departDate,
+    isDateSelectorVisible
   } = props;
+  console.log("departDate", departDate);
 
   const onBack = useCallback(() => {
     window.history.back();
@@ -59,6 +63,16 @@ function App(props) {
     return bindActionCreators({ onClick: showDateSelector }, dispatch);
   });
 
+  const dateSelectorCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        onBack: hideDateSelector,
+        onSelect: () => {}
+      },
+      dispatch
+    );
+  });
+
   return (
     <div>
       <div className="header-wrapper">
@@ -77,6 +91,8 @@ function App(props) {
         isLoading={isLoadingCityData}
         {...citySelectorCbs}
       />
+
+      <DateSelector show={isDateSelectorVisible} {...dateSelectorCbs} />
     </div>
   );
 }

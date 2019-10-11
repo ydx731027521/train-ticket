@@ -27,7 +27,7 @@ function Datepicker(props) {
   const dayString = toDayString(departDate, isToday);
 
   return (
-    <div className="depart-date" onClick={onClick}>
+    <div className="depart-date" onClick={() => onClick(true)}>
       {departDateString}
       <span className="depart-week">{dayString}</span>
     </div>

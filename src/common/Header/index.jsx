@@ -8,7 +8,7 @@ export default function Header(props) {
   return (
     <div className="header">
       <div className="header-back">
-        <svg width="42" height="42">
+        <svg width="42" height="42" onClick={onBack}>
           <polyline
             points="25,13 16,21 25,28"
             stroke="#fff"

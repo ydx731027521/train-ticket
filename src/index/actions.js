@@ -6,7 +6,8 @@ import {
   ACTION_SET_CITY_DATA,
   ACTION_SET_IS_LOADING_CITY_DATA,
   ACTION_SET_IS_DATE_SELECTOR_VISIBLE,
-  ACTION_SET_HIGN_SPEED
+  ACTION_SET_HIGN_SPEED,
+  ACTION_SET_DEPART_DATE
 } from "./actionTypes";
 
 // 设置出发地点
@@ -97,6 +98,15 @@ export function hideDateSelector() {
   return {
     type: ACTION_SET_IS_DATE_SELECTOR_VISIBLE,
     payload: false
+  };
+}
+
+// 设置选择出发日期
+export function setSelectDay(payload) {
+  console.log("payload", payload);
+  return {
+    type: ACTION_SET_DEPART_DATE,
+    payload
   };
 }
 

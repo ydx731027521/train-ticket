@@ -11,6 +11,8 @@ import Submit from "./components/Submit/index.jsx";
 import CitySelector from "@/common/CitySelector/index.jsx";
 import DateSelector from "@/common/DateSelector/index.jsx";
 
+import { transDayTime } from "./util";
+
 import {
   showCitySelector,
   exchangeFromTo,
@@ -18,7 +20,9 @@ import {
   fetchCityData,
   setSelectedCity,
   showDateSelector,
-  hideDateSelector
+  hideDateSelector,
+  setSelectDay,
+  toggleHighSpeed
 } from "./actions";
 
 function App(props) {
@@ -30,9 +34,9 @@ function App(props) {
     isCitySelectorVisible,
     dispatch,
     departDate,
-    isDateSelectorVisible
+    isDateSelectorVisible,
+    highSpeed
   } = props;
-  console.log("departDate", departDate);
 
   const onBack = useCallback(() => {
     window.history.back();
@@ -46,7 +50,7 @@ function App(props) {
       },
       dispatch
     );
-  });
+  }, []);
 
   const citySelectorCbs = useMemo(() => {
     return bindActionCreators(
@@ -57,31 +61,47 @@ function App(props) {
       },
       dispatch
     );
-  });
+  }, []);
 
   const datePickerCbs = useMemo(() => {
     return bindActionCreators({ onClick: showDateSelector }, dispatch);
-  });
+  }, []);
+
+  // 选择出发时间
+  const onSelectDay = useCallback(day => {
+    if (!day || day < transDayTime()) return;
+
+    dispatch(setSelectDay(day));
+    dispatch(hideDateSelector());
+  }, []);
 
   const dateSelectorCbs = useMemo(() => {
     return bindActionCreators(
       {
-        onBack: hideDateSelector,
-        onSelect: () => {}
+        onBack: hideDateSelector
       },
       dispatch
     );
-  });
+  }, []);
+
+  const highSpeedCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        toggle: toggleHighSpeed
+      },
+      dispatch
+    );
+  }, []);
 
   return (
     <div>
       <div className="header-wrapper">
         <Header title="火车票" onBack={onBack} />
       </div>
-      <form className="form">
+      <form action="./query.html" className="form">
         <Destination from={from} to={to} {...destinationCbs} />
         <DatePicker time={departDate} {...datePickerCbs} />
-        <HighSpeed />
+        <HighSpeed highSpeed={highSpeed} {...highSpeedCbs} />
         <Submit />
       </form>
 
@@ -92,7 +112,11 @@ function App(props) {
         {...citySelectorCbs}
       />
 
-      <DateSelector show={isDateSelectorVisible} {...dateSelectorCbs} />
+      <DateSelector
+        show={isDateSelectorVisible}
+        {...dateSelectorCbs}
+        onSelect={onSelectDay}
+      />
     </div>
   );
 }

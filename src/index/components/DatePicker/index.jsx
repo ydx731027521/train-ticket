@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import dayjs from "dayjs";
 import "./index.css";
 
-import { transDayTime } from "./util";
+import { transDayTime } from "../../util";
 
 function toDayString(date, isToday) {
   const dayList = ["日", "一", "二", "三", "四", "五", "六"];

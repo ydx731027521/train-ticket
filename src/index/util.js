@@ -1,3 +1,4 @@
+// 获取某一天的0时刻的时间戳
 export function transDayTime(timestamp = Date.now()) {
   const time = new Date(timestamp);
 

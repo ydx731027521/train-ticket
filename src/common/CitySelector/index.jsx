@@ -19,7 +19,7 @@ export default function CitySelector(props) {
   useEffect(() => {
     if (!show || isLoading || cityData) return;
     fetchCityData();
-  }, [show, isLoading, cityData]);
+  }, [show, isLoading, cityData, fetchCityData]);
 
   const outputCityList = useCallback(() => {
     if (isLoading) {

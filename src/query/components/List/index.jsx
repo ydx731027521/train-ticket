@@ -1,9 +1,23 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import "./index.css";
 
-export default function List(props) {
-  return null;
-}
+import ListItem from "./ListItem";
 
-List.propTypes = {};
+const List = memo(props => {
+  const { list } = props;
+
+  return (
+    <ul>
+      {list.map(item => (
+        <ListItem {...item} key={item.trainNumber} />
+      ))}
+    </ul>
+  );
+});
+
+export default List;
+
+List.propTypes = {
+  list: PropTypes.array.isRequired
+};

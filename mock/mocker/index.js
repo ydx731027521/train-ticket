@@ -5,6 +5,7 @@ module.exports = {
     return res.json({ code: 0 });
   },
   "GET /rest/cities": require("./rest/cities.json"),
+  "GET /rest/query": require("./rest/query.json"),
   "GET /rest/search"(req, res) {
     const { key } = req.query;
     console.log("key", key);

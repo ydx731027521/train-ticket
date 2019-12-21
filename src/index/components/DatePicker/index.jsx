@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import dayjs from "dayjs";
 import "./index.css";
 
-import { transDayTime } from "../../util";
+import { transDayTime } from "../../../utils/util";
 
 function toDayString(date, isToday) {
   const dayList = ["日", "一", "二", "三", "四", "五", "六"];
@@ -28,6 +28,7 @@ function Datepicker(props) {
 
   return (
     <div className="depart-date" onClick={() => onClick(true)}>
+      <input type="hidden" name="date" value={departTime}/>
       {departDateString}
       <span className="depart-week">{dayString}</span>
     </div>

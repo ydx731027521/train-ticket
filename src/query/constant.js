@@ -1,2 +1,2 @@
-export const ORDERTYPE_SHORT = 1;
-export const ORDERTYPE_LONG = 2;
+export const ORDER_DEPART = 1;
+export const ORDER_DURATION = 2;
